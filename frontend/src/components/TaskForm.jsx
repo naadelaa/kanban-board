@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { useToast } from '../context/ToastContext';
 
 function TaskForm({ task, onSubmit, onClose }) {
     const [name, setName] = useState(task?.name || '');
     const [description, setDescription] = useState(task?.description || '');
     const [teams, setTeams] = useState(task?.teams || []);
     const [status, setStatus] = useState(task?.status || 'TO DO');
+    const { addToast } = useToast();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!name) return alert('Name required');
-        if (!description) return alert('Description required');
-        if (!teams) return alert('Cathegory required');
-        if (!status) return alert('Status required');
+        if (!name) return addToast('Name required', { type: 'error' });
+        if (!description) return addToast('Description required', { type: 'error' });
+        if (!teams) return addToast('Cathegory required', { type: 'error' });
+        if (!status) return addToast('Status required', { type: 'error' });
         onSubmit({ name, description, teams, status });
         onClose();
     };

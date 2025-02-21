@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
 import axios from 'axios';
 
 const TaskDetail = () => {
@@ -11,6 +12,7 @@ const TaskDetail = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { addToast } = useToast();
 
     useEffect(() => {
         const fetchTask = async () => {
@@ -43,10 +45,11 @@ const TaskDetail = () => {
             );
 
             if (response.status === 200) {
-                console.log("Task updated successfully");
+                addToast('Task updated successfully!');
             }
         } catch (error) {
             console.error("Failed to update task:", error);
+            addToast('Failed to update task', { type: 'error' });
         } finally {
             setLoading(false);
             setShowEditModal(false);
@@ -59,7 +62,7 @@ const TaskDetail = () => {
             const response = await axios.delete(
                 `https://67b49c7ca9acbdb38ecfb382.mockapi.io/api/v1/tasks/${taskId}`
             );
-            alert('Task deleted successfully');
+            addToast('Task deleted successfully');
         } catch (error) {
             console.error(error);
         } finally {

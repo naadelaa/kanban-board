@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import heroImage from '../assets/heroimg.jpg';
+import { useToast } from '../context/ToastContext';
 import axios from 'axios';
 
 function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
-    const [error, setError] = useState('');
+    const { addToast } = useToast();
 
     const [credentials, setCredentials] = useState({
         username: '',
         password: ''
     });
+
+    useEffect(() => {
+        const checkuser = localStorage.getItem('user')
+        if (checkuser !== null) localStorage.removeItem('user');
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,10 +27,13 @@ function Login() {
             const user = users.find(u => u.username === e.target.username.value && u.password === e.target.password.value);
             if (user) {
                 login(user);
+                addToast('Login successfully!');
                 navigate('/');
-            } else setError('Invalid credentials');
+            } else {
+                addToast('Incorrect username or password.', { type: 'error' });
+            }
         } catch (err) {
-            setError('Login failed');
+            addToast('Login failed', { type: 'error' });
         }
     };
 

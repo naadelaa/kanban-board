@@ -55,7 +55,10 @@ const SortableItem = ({ task }) => {
 };
 
 const KanbanBoard = ({ tasks = [], onRefresh }) => {
-    const addToast = useToast();
+    const { addToast } = useToast();
+    const dTask = tasks
+    // console.log('curr task', dTask);
+
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -69,6 +72,8 @@ const KanbanBoard = ({ tasks = [], onRefresh }) => {
     };
 
     const handleDragEnd = async (event) => {
+        console.log('check event', event);
+
         const { active, over } = event;
         if (!over || active.id === over.id) return;
 
@@ -80,12 +85,21 @@ const KanbanBoard = ({ tasks = [], onRefresh }) => {
             columns[key].some(t => t.id === over.id)
         ) || sourceColumn;
 
+        const targetId = active.id;
+        const selectedData = dTask.find(item => item.id === targetId);
+
         try {
-            await axios.patch(
+            await axios.put(
                 `https://67b49c7ca9acbdb38ecfb382.mockapi.io/api/v1/tasks/${active.id}`,
                 {
                     status: destinationColumn,
                     updatedAt: new Date().toISOString(),
+                    id: active.id,
+                    name: selectedData.name,
+                    description: selectedData.description,
+                    teams: selectedData.teams,
+                    createdAt: selectedData.createdAt,
+                    title: selectedData.title
                 }
             );
 
