@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "61a92165-5fe0-4344-9ee6-3fb27d82189d",
+		"name": "Kanban Board",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30179519"
+	},
+	"item": [
+		{
+			"name": "Tasks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://67b49c7ca9acbdb38ecfb382.mockapi.io/api/v1/tasks",
+					"protocol": "https",
+					"host": [
+						"67b49c7ca9acbdb38ecfb382",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://67b49c7ca9acbdb38ecfb382.mockapi.io/api/v1/users",
+					"protocol": "https",
+					"host": [
+						"67b49c7ca9acbdb38ecfb382",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
